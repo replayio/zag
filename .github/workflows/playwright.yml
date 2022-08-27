@@ -1,21 +1,9 @@
-name: Playwright Tests
-
-on:
+name: E2E Test
+on: 
+  schedule:
+    - cron: '0 0 * * *'
   push:
-    branches:
-      - main
-    paths:
-      - "packages/**"
-      - "e2e/**"
-      - "playwright.config.ts"
-  pull_request:
-    branches-ignore:
-      - "renovate/**"
-    types: [opened, synchronize]
-    paths:
-      - "packages/**"
-      - "e2e/**"
-      - "playwright.config.ts"
+  workflow_dispatch:
 
 env:
   CI: true
@@ -37,35 +25,13 @@ jobs:
         uses: ./.github/composite-actions/install
 
       - name: Install Playwright
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps && npx @replayio/playwright install
 
       - name: Run your tests
-        run: pnpm e2e-react
+        run: pnpm e2e-react-replay
 
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v3
+      - name: Upload replays
+        if: ${{ always() }}
+        uses: replayio/action-upload@v0.4.3
         with:
-          name: test-results
-          path: |
-            e2e/report
-            e2e/junit.xml
-          retention-days: 15
-
-  report:
-    if: always()
-    name: Get reports
-    needs: [e2e]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifacts
-        id: download
-        uses: actions/download-artifact@v3
-
-      - name: Generate test summary
-        if: always()
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        with:
-          check_name: Playwright Tests
-          files: "test-results/**/*.xml"
-          commit: ${{ github.event.workflow_run.head_sha }}
+          api-key: rwk_zc9H1fCMI0B9mMJxY8wYE5vQOQ2FEnBu9ohGb5OMH10
