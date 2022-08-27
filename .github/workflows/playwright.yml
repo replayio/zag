@@ -16,7 +16,10 @@ jobs:
   e2e:
     name: End to End tests
     timeout-minutes: 30
-
+    strategy:
+      fail-fast: false
+      matrix:
+        record: ["record", "no-record"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -29,6 +32,8 @@ jobs:
 
       - name: Run your tests
         run: pnpm e2e-react-replay
+        env:
+          RECORD_REPLAY_NO_RECORD: ${{ matrix.record == 'no-record' && '1' || '' }}
 
       - name: Upload replays
         if: ${{ always() }}
