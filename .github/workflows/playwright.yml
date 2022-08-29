@@ -34,6 +34,8 @@ jobs:
         run: pnpm e2e-react-replay
         env:
           RECORD_REPLAY_NO_RECORD: ${{ matrix.record == 'no-record' && '1' || '' }}
+          RECORD_REPLAY_TEST_METRICS: 1
+          RECORD_REPLAY_WEBHOOK_URL: ${{ secrets.RECORD_REPLAY_WEBHOOK_URL }}
 
       - name: Upload replays
         if: ${{ always() }}
