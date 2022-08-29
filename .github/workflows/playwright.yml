@@ -41,4 +41,5 @@ jobs:
         if: ${{ always() }}
         uses: replayio/action-upload@v0.4.3
         with:
+          public: true
           api-key: rwk_zc9H1fCMI0B9mMJxY8wYE5vQOQ2FEnBu9ohGb5OMH10
