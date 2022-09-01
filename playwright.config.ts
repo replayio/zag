@@ -1,4 +1,4 @@
-import { PlaywrightTestConfig, ReporterDescription } from "@playwright/test"
+import { PlaywrightTestConfig, ReporterDescription, devices } from "@playwright/test"
 import { devices as replayDevices } from "@replayio/playwright";
 
 function getBaseUrl() {
@@ -8,6 +8,10 @@ function getBaseUrl() {
 
 const config: PlaywrightTestConfig = {
   projects: [
+    {
+      name: "chromium",
+      use: { ...devices["Desktop Chromium"] },
+    },
     {
       name: "replay-chromium",
       use: { ...replayDevices["Replay Chromium"] as any },

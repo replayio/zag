@@ -22,7 +22,7 @@
     "start-react": "pnpm react dev",
     "start-vue": "pnpm vue dev",
     "start-solid": "pnpm solid dev",
-    "pw-test": "playwright test",
+    "pw-test": "playwright test --project chromium",
     "pw-test-replay": "npx playwright test --project replay-chromium --reporter=@replayio/playwright/reporter,line",
     "pw-test-debug": "PWDEBUG=1 playwright test",
     "e2e-react": "start-server-and-test \"pnpm react test-dev\" http://localhost:3000 \"PORT=3000 pnpm pw-test\"",
