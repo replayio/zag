@@ -94,6 +94,6 @@
     "typescript": "4.7.4"
   },
   "devDependencies": {
-    "@replayio/playwright": "^0.2.24"
+    "@replayio/playwright": "^0.2.25"
   }
 }
