@@ -1,5 +1,5 @@
 import { PlaywrightTestConfig, ReporterDescription, devices } from "@playwright/test"
-import { devices as replayDevices } from "@replayio/playwright";
+import { devices as replayDevices } from "@replayio/playwright"
 
 function getBaseUrl() {
   const port = process.env.PORT || "3000"
@@ -14,8 +14,12 @@ const config: PlaywrightTestConfig = {
     },
     {
       name: "replay-chromium",
-      use: { ...replayDevices["Replay Chromium"] as any },
-    }
+      use: { ...(replayDevices["Replay Chromium"] as any) },
+    },
+    {
+      name: "replay-firefox",
+      use: { ...(replayDevices["Replay Firefox"] as any) },
+    },
   ],
   testDir: "./e2e",
   outputDir: "./e2e/results",
